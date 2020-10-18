@@ -7,8 +7,8 @@ import Table from './components/Table';
 
 export default class App extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       sortBy: ""
@@ -16,16 +16,28 @@ export default class App extends Component {
 
   }
 
-  handleClickAge() {
+  handleClickAge = () =>  {
+    this.setState({
+      sortBy: "age"
+    })
   }
 
-  handleClickName() {
+  handleClickName = () => {
+    this.setState({
+      sortBy: "name"
+    })
   }
 
-  handleClickPoints() {
+  handleClickPoints= () =>  {
+    this.setState({
+      sortBy: "points"
+    })
   }
 
-  handleClickRank() {
+  handleClickRank= () =>  {
+    this.setState({
+      sortBy: "rank"
+    })
   }
 
   render() {
@@ -35,11 +47,11 @@ export default class App extends Component {
           <h1>Leaderboard</h1>
         </header>
         <div className="text-center buttons">
-          <Age></Age>
-          <Name></Name>
-          <Points></Points>
-          <Rank></Rank>
-          <Table></Table>
+          <Age  handleClick={this.handleClickAge}></Age>
+          <Name handleClick={this.handleClickName}></Name>
+          <Points handleClick={this.handleClickPoints}></Points>
+          <Rank handleClick={this.handleClickRank}></Rank>
+          <Table sortBy={this.state.sortBy}></Table>
         </div>
       </div>
     );

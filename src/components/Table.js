@@ -9,26 +9,53 @@ export default class Table extends Component {
 		}
 	}
 
-	componentWillReceiveProps() {
-		
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps.sortBy);
+		switch(nextProps.sortBy){
+			case 'name' : this.compareByName();
+					break;
+			case 'age' : this.compareByAge();
+					break;
+			case 'points' : this.compareByPoints();
+					break;
+			case 'rank' : this.compareByRank();
+					break;
+		}
 	}
 
-    // complete the comparators
-	compareByAge(a, b) {
-		
+	compareByAge() {
+		this.setState((prevState) => { 
+			users : prevState.users.sort((a,b) => {
+				return a.age - b.age
+			});
+		})
 	}
 
-	compareByName(a, b) {
-		
+	compareByName() {
+		this.setState((prevState) => { 
+			users : prevState.users.sort((a,b) => {
+				return a.name.localeCompare(b.name);
+			});
+		})
 	}
 
-	compareByPoints(a, b) {
-		
+	compareByPoints() {
+		this.setState((prevState) => { 
+			users : prevState.users.sort((a,b) => {
+				return a.points - b.points
+			});
+		})
 	}
 
 	compareByRank(a, b) {
-		
+		this.setState((prevState) => { 
+			users : prevState.users.sort((a,b) => {
+				return a.rank - b.rank
+			});
+		})
 	}
+
+
 
 	render() {
  
@@ -42,7 +69,16 @@ export default class Table extends Component {
 						<th>Rank</th>
 					</tr>
 				</thead>
-				<tbody></tbody>
+				<tbody>
+					{this.state.users.map(({age,name,points,rank}) => (
+						<tr key={rank}>
+							<td>{age}</td>
+							<td>{name}</td>
+							<td>{points}</td>
+							<td>{rank}</td>
+						</tr>
+					))}
+				</tbody>
 			</table>
 		</div>)
 	}
